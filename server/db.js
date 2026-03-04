@@ -150,6 +150,18 @@ async function createSchema() {
       created_at   TIMESTAMPTZ  DEFAULT NOW(),
       updated_at   TIMESTAMPTZ  DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS prompts (
+      id           SERIAL       PRIMARY KEY,
+      title        TEXT         NOT NULL,
+      content      TEXT         NOT NULL,
+      category     TEXT         DEFAULT 'general',
+      tags         TEXT[]       DEFAULT '{}',
+      use_count    INTEGER      DEFAULT 0,
+      last_used    TIMESTAMPTZ,
+      created_at   TIMESTAMPTZ  DEFAULT NOW(),
+      updated_at   TIMESTAMPTZ  DEFAULT NOW()
+    );
   `);
 
   // Add new columns to existing projects table if they don't exist

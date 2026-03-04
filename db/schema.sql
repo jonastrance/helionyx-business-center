@@ -119,11 +119,26 @@ CREATE TABLE IF NOT EXISTS envelopes (
 -- Link projects to envelopes
 ALTER TABLE projects ADD COLUMN IF NOT EXISTS envelope_id INTEGER REFERENCES envelopes(id);
 
+-- Prompts (saved prompts library)
+CREATE TABLE IF NOT EXISTS prompts (
+  id           SERIAL       PRIMARY KEY,
+  title        TEXT         NOT NULL,
+  content      TEXT         NOT NULL,
+  category     TEXT         DEFAULT 'general',
+  tags         TEXT[]       DEFAULT '{}',
+  use_count    INTEGER      DEFAULT 0,
+  last_used    TIMESTAMPTZ,
+  created_at   TIMESTAMPTZ  DEFAULT NOW(),
+  updated_at   TIMESTAMPTZ  DEFAULT NOW()
+);
+
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_thoughts_created   ON thoughts(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_projects_updated   ON projects(updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_envelopes_name    ON envelopes(name);
 CREATE INDEX IF NOT EXISTS idx_envelopes_type    ON envelopes(type);
+CREATE INDEX IF NOT EXISTS idx_prompts_category  ON prompts(category);
+CREATE INDEX IF NOT EXISTS idx_prompts_updated  ON prompts(updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_chat_created       ON chat_messages(created_at ASC);
 CREATE INDEX IF NOT EXISTS idx_tasks_project      ON project_tasks(project_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_date  ON transactions(date DESC);

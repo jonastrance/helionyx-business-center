@@ -16,6 +16,7 @@ import Uptime from './panels/Uptime.jsx';
 import SSL from './panels/SSL.jsx';
 import Settings from './panels/Settings.jsx';
 import Envelopes from './panels/Envelopes.jsx';
+import Prompts from './panels/Prompts.jsx';
 
 const PANELS = {
   overview:  Overview,
@@ -25,6 +26,7 @@ const PANELS = {
   thoughts:  Thoughts,
   projects:  Projects,
   envelopes: Envelopes,
+  prompts:   Prompts,
   vendors:   Vendors,
   bible:     Bible,
   setup:     BusinessSetup,

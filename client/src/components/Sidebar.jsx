@@ -28,6 +28,7 @@ const NAV = [
   { id: 'thoughts',  icon: '💬', label: 'Thoughts' },
   { id: 'projects',  icon: '📁', label: 'Projects' },
   { id: 'envelopes', icon: '✉️', label: 'Envelopes' },
+  { id: 'prompts',   icon: '📋', label: 'Prompts' },
   { sep: 'System' },
   { id: 'settings',  icon: '⚙️', label: 'Settings' },
 ];
