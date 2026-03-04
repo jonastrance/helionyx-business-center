@@ -1,0 +1,29 @@
+{
+  "name": "helionyx-business-center",
+  "version": "2.0.0",
+  "description": "Helionyx Business Center — React + Node.js + PostgreSQL",
+  "type": "module",
+  "scripts": {
+    "start":      "node server/index.js",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "npm run dev --prefix client",
+    "dev":        "concurrently --names SERVER,CLIENT --prefix-colors cyan,magenta \"node server/index.js\" \"npm run dev --prefix client\"",
+    "build":      "npm run build --prefix client",
+    "install:all": "npm install && npm install --prefix client"
+  },
+  "dependencies": {
+    "express":          "^4.21.0",
+    "pg":               "^8.13.0",
+    "cors":             "^2.8.5",
+    "dotenv":           "^16.4.5",
+    "node-fetch":       "^3.3.2",
+    "openai":           "^4.67.0",
+    "@anthropic-ai/sdk":"^0.32.0",
+    "ws":               "^8.18.0",
+    "multer":           "^1.4.5-lts.1",
+    "glob":             "^11.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

@@ -1,0 +1,41 @@
+export const TASKS = {
+  urgent: [
+    { id: 'u1', t: 'Renew jonastrance.com IMMEDIATELY — expires Mar 17, 2026 — Alert status at Namecheap', link: 'https://ap.www.namecheap.com/domains/list/' },
+    { id: 'u2', t: 'Renew Namecheap Reseller Hosting before Mar 19, 2026 — auto-renew is OFF', link: 'https://ap.www.namecheap.com' },
+  ],
+  inProgress: [
+    { id: 'p1', t: 'Business Center v2 (React + Node + PostgreSQL) — in progress' },
+  ],
+  next: [
+    { id: 'n1', t: 'Configure Stripe or PayPal payment gateway in WHMCS', link: 'https://helionyxcommons.com/admin' },
+    { id: 'n2', t: 'Add company email, address, phone in WHMCS → Setup → General Settings → Store' },
+    { id: 'n3', t: 'Upload logo to WHMCS portal' },
+    { id: 'n4', t: 'Set up Terms of Service and Privacy Policy pages' },
+    { id: 'n5', t: 'Configure TLD pricing for domain registration in WHMCS' },
+    { id: 'n6', t: 'Test full signup flow end-to-end (order → pay → provision)' },
+    { id: 'n7', t: 'Set up local PostgreSQL and connect to Business Center' },
+  ],
+  backlog: [
+    { id: 'b1', t: 'Define next Helionyx business unit (beyond web hosting)' },
+    { id: 'b2', t: 'Set up business email (e.g. ryan@helionyxcommons.com)' },
+    { id: 'b3', t: 'Assign purposes to the 73-domain portfolio' },
+    { id: 'b4', t: 'Define 1-2 year vision for Helionyx LLC' },
+    { id: 'b5', t: 'Build marketing/outreach plan for Helionyx Commons' },
+    { id: 'b6', t: 'Create customer onboarding workflow' },
+    { id: 'b7', t: 'Research VPS options for scaling (Namecheap, Hetzner, DigitalOcean)' },
+    { id: 'b8', t: 'Apply for EIN and open business checking account' },
+  ],
+  done: [
+    { id: 'd1',  t: 'Namecheap Reseller Hosting (Nebula) provisioned' },
+    { id: 'd2',  t: 'WHM and cPanel active on host39.registrar-servers.com' },
+    { id: 'd3',  t: 'WHMCS installed and licensed (Starter)' },
+    { id: 'd4',  t: 'WHMCS cron job fixed and running' },
+    { id: 'd5',  t: 'OPcache PHP warning cleared (.user.ini)' },
+    { id: 'd6',  t: 'Namecheap registrar API configured in WHMCS' },
+    { id: 'd7',  t: 'Hosting products created (Starter $3.99/mo, Pro $7.99/mo, Business $14.99/mo)' },
+    { id: 'd8',  t: 'Custom dark navy/teal theme "helionyx" built and deployed' },
+    { id: 'd9',  t: 'helionyxcommons.com live with branding and welcome announcement' },
+    { id: 'd10', t: 'Full domain portfolio captured (73 domains)' },
+    { id: 'd11', t: 'Business Center v1 deployed with domain tracking + Ollama AI' },
+  ],
+};
