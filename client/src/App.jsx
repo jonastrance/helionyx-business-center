@@ -15,6 +15,7 @@ import ServerHealth from './panels/ServerHealth.jsx';
 import Uptime from './panels/Uptime.jsx';
 import SSL from './panels/SSL.jsx';
 import Settings from './panels/Settings.jsx';
+import Envelopes from './panels/Envelopes.jsx';
 
 const PANELS = {
   overview:  Overview,
@@ -23,6 +24,7 @@ const PANELS = {
   abbot:     Abbot,
   thoughts:  Thoughts,
   projects:  Projects,
+  envelopes: Envelopes,
   vendors:   Vendors,
   bible:     Bible,
   setup:     BusinessSetup,

@@ -90,9 +90,40 @@ CREATE TABLE IF NOT EXISTS settings (
   updated_at   TIMESTAMPTZ  DEFAULT NOW()
 );
 
+-- Envelopes (reusable project metadata)
+CREATE TABLE IF NOT EXISTS envelopes (
+  id            SERIAL       PRIMARY KEY,
+  name          TEXT         NOT NULL,
+  type          TEXT         DEFAULT 'generic',
+  client_name   TEXT,
+  client_email  TEXT,
+  company       TEXT,
+  domain        TEXT,
+  server_ip    TEXT,
+  server_url   TEXT,
+  whm_username TEXT,
+  cpanel_username TEXT,
+  registrar    TEXT,
+  registrar_account TEXT,
+  nameservers  TEXT[],
+  ssl_valid_to DATE,
+  ssl_issuer   TEXT,
+  billing_cycle TEXT,
+  monthly_cost  DECIMAL(10,2),
+  notes        TEXT,
+  custom_fields JSONB DEFAULT '{}',
+  created_at   TIMESTAMPTZ  DEFAULT NOW(),
+  updated_at   TIMESTAMPTZ  DEFAULT NOW()
+);
+
+-- Link projects to envelopes
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS envelope_id INTEGER REFERENCES envelopes(id);
+
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_thoughts_created   ON thoughts(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_projects_updated   ON projects(updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_envelopes_name    ON envelopes(name);
+CREATE INDEX IF NOT EXISTS idx_envelopes_type    ON envelopes(type);
 CREATE INDEX IF NOT EXISTS idx_chat_created       ON chat_messages(created_at ASC);
 CREATE INDEX IF NOT EXISTS idx_tasks_project      ON project_tasks(project_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_date  ON transactions(date DESC);

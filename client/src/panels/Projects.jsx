@@ -9,10 +9,26 @@ const STATUS_CONFIG = {
   complete: { label: 'Complete', cls: 'badge-green',   icon: '✅' },
 };
 
-const EMPTY_FORM = { name: '', description: '', status: 'idea', tech_stack: '', repo_url: '', local_path: '', notes: '', domain: '', git_branch: '', git_remote: '' };
+const EMPTY_FORM = { name: '', description: '', status: 'idea', tech_stack: '', repo_url: '', local_path: '', notes: '', domain: '', git_branch: '', git_remote: '', envelope_id: '' };
 
 export default function Projects() {
   const { state, dispatch } = useApp();
+  const [envelopes, setEnvelopes] = useState([]);
+
+  // Load envelopes for selector
+  useEffect(() => {
+    async function loadEnvelopes() {
+      if (state.serverOnline) {
+        try {
+          const data = await api.get('/api/envelopes');
+          setEnvelopes(data);
+          return;
+        } catch {}
+      }
+      setEnvelopes(ls.get('envelopes', []));
+    }
+    loadEnvelopes();
+  }, [state.serverOnline]);
   const [loaded, setLoaded]         = useState(false);
   const [showForm, setShowForm]     = useState(false);
   const [form, setForm]             = useState(EMPTY_FORM);
@@ -47,6 +63,7 @@ export default function Projects() {
     setSaving(true);
     const payload = {
       ...form,
+      envelope_id: form.envelope_id ? parseInt(form.envelope_id) : null,
       tech_stack: form.tech_stack.split(',').map(s => s.trim()).filter(Boolean),
     };
     try {
@@ -164,6 +181,10 @@ export default function Projects() {
                    onChange={e => setForm(p => ({...p, domain: e.target.value}))} />
             <input className="input" placeholder="Git branch (optional, e.g. main)" value={form.git_branch}
                    onChange={e => setForm(p => ({...p, git_branch: e.target.value}))} />
+            <select className="select" value={form.envelope_id} onChange={e => setForm(p => ({...p, envelope_id: e.target.value}))}>
+              <option value="">No envelope</option>
+              {envelopes.map(e => <option key={e.id} value={e.id}>{e.name} {e.domain ? `(${e.domain})` : ''}</option>)}
+            </select>
             <textarea className="input col-span-2 resize-none" rows={2} placeholder="Notes (optional)"
                       value={form.notes} onChange={e => setForm(p => ({...p, notes: e.target.value}))} />
           </div>
@@ -232,6 +253,10 @@ export default function Projects() {
                       {proj.local_path && <span title={proj.local_path}>📂 {proj.local_path.split(/[/\\]/).pop()}</span>}
                       {proj.domain && <span className="text-teal">🌐 {proj.domain}</span>}
                       {proj.git_branch && <span className="text-purple-400">⎇ {proj.git_branch}</span>}
+                      {proj.envelope_id && (() => {
+                        const env = envelopes.find(e => e.id === proj.envelope_id || e.id === parseInt(proj.envelope_id));
+                        return env ? <span className="text-amber-400" title={env.name}>✉️ Envelope</span> : null;
+                      })()}
                     </div>
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0">

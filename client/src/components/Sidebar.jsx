@@ -27,6 +27,7 @@ const NAV = [
   { id: 'abbot',     icon: '🤖', label: 'Abbot AI' },
   { id: 'thoughts',  icon: '💬', label: 'Thoughts' },
   { id: 'projects',  icon: '📁', label: 'Projects' },
+  { id: 'envelopes', icon: '✉️', label: 'Envelopes' },
   { sep: 'System' },
   { id: 'settings',  icon: '⚙️', label: 'Settings' },
 ];

@@ -125,6 +125,31 @@ async function createSchema() {
       value        TEXT,
       updated_at   TIMESTAMPTZ  DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS envelopes (
+      id            SERIAL       PRIMARY KEY,
+      name          TEXT         NOT NULL,
+      type          TEXT         DEFAULT 'generic',
+      client_name   TEXT,
+      client_email  TEXT,
+      company       TEXT,
+      domain        TEXT,
+      server_ip    TEXT,
+      server_url   TEXT,
+      whm_username TEXT,
+      cpanel_username TEXT,
+      registrar    TEXT,
+      registrar_account TEXT,
+      nameservers  TEXT[],
+      ssl_valid_to DATE,
+      ssl_issuer   TEXT,
+      billing_cycle TEXT,
+      monthly_cost  DECIMAL(10,2),
+      notes        TEXT,
+      custom_fields JSONB DEFAULT '{}',
+      created_at   TIMESTAMPTZ  DEFAULT NOW(),
+      updated_at   TIMESTAMPTZ  DEFAULT NOW()
+    );
   `);
 
   // Add new columns to existing projects table if they don't exist
@@ -132,6 +157,7 @@ async function createSchema() {
     await pool.query(`ALTER TABLE projects ADD COLUMN IF NOT EXISTS domain TEXT`);
     await pool.query(`ALTER TABLE projects ADD COLUMN IF NOT EXISTS git_branch TEXT`);
     await pool.query(`ALTER TABLE projects ADD COLUMN IF NOT EXISTS git_remote TEXT`);
+    await pool.query(`ALTER TABLE projects ADD COLUMN IF NOT EXISTS envelope_id INTEGER REFERENCES envelopes(id)`);
   } catch (e) { /* columns may already exist */ }
 
   console.log('✅ Schema ready');

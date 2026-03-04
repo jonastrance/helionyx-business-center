@@ -11,6 +11,7 @@ const initialState = {
   ollamaModels: [],
   thoughts: [],
   projects: [],
+  envelopes: [],
   setupState: {},
 };
 
@@ -20,6 +21,7 @@ function reducer(state, action) {
     case 'SET_STATUS':    return { ...state, ...action.payload };
     case 'SET_THOUGHTS':  return { ...state, thoughts: action.payload };
     case 'SET_PROJECTS':  return { ...state, projects: action.payload };
+    case 'SET_ENVELOPES': return { ...state, envelopes: action.payload };
     case 'SET_SETUP':     return { ...state, setupState: action.payload };
     case 'TOGGLE_SETUP':  return { ...state, setupState: { ...state.setupState, [action.id]: action.done } };
     case 'ADD_THOUGHT':   return { ...state, thoughts: [action.payload, ...state.thoughts] };

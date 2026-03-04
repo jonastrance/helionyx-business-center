@@ -13,19 +13,19 @@ r.get('/', async (req, res) => {
 });
 
 r.post('/', async (req, res) => {
-  const { name, description, status = 'idea', tech_stack = [], repo_url, local_path, notes, domain, git_branch, git_remote } = req.body;
-  if (!pool) return res.json({ id: Date.now(), name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, tasks: [] });
+  const { name, description, status = 'idea', tech_stack = [], repo_url, local_path, notes, domain, git_branch, git_remote, envelope_id } = req.body;
+  if (!pool) return res.json({ id: Date.now(), name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, envelope_id, tasks: [] });
   try {
     const { rows } = await pool.query(
-      'INSERT INTO projects (name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *',
-      [name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote]
+      'INSERT INTO projects (name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, envelope_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *',
+      [name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, envelope_id]
     );
     res.json({ ...rows[0], tasks: [] });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
 r.put('/:id', async (req, res) => {
-  const { name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote } = req.body;
+  const { name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, envelope_id } = req.body;
   if (!pool) return res.json({ ok: true });
   try {
     const { rows } = await pool.query(
@@ -33,8 +33,8 @@ r.put('/:id', async (req, res) => {
        status=COALESCE($3,status), tech_stack=COALESCE($4,tech_stack),
        repo_url=COALESCE($5,repo_url), local_path=COALESCE($6,local_path),
        notes=COALESCE($7,notes), domain=COALESCE($8,domain), git_branch=COALESCE($9,git_branch),
-       git_remote=COALESCE($10,git_remote), updated_at=NOW() WHERE id=$11 RETURNING *`,
-      [name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, req.params.id]
+       git_remote=COALESCE($10,git_remote), envelope_id=COALESCE($11,envelope_id), updated_at=NOW() WHERE id=$12 RETURNING *`,
+      [name, description, status, tech_stack, repo_url, local_path, notes, domain, git_branch, git_remote, envelope_id, req.params.id]
     );
     res.json(rows[0]);
   } catch (e) { res.status(500).json({ error: e.message }); }

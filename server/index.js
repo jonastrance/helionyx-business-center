@@ -16,6 +16,7 @@ import uptimeRouter from './routes/uptime.js';
 import sslRouter from './routes/ssl.js';
 import settingsRouter from './routes/settings.js';
 import gitRouter from './routes/git.js';
+import envelopesRouter from './routes/envelopes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/uptime', uptimeRouter);
 app.use('/api/ssl', sslRouter);
 app.use('/api/settings', settingsRouter);
 app.use('/api/git', gitRouter);
+app.use('/api/envelopes', envelopesRouter);
 
 // Health check
 app.get('/api/health', async (req, res) => {
