@@ -63,7 +63,7 @@ MINIMAX_API_KEY=
 - **Global state** via `useApp()` context in `client/src/context/AppContext.jsx`
 - **Offline-first:** API calls fallback to localStorage when server is down
 
-## Current Panels (16 total)
+## Current Panels (17 total)
 
 | Panel | Description |
 |-------|-------------|
@@ -82,6 +82,7 @@ MINIMAX_API_KEY=
 | Thoughts | Quick capture with tags |
 | Projects | Cards + tasks + folder scanner + envelope linking |
 | Envelopes | Reusable project metadata — clients, hosting, domains |
+| Prompts | Save and reuse prompts, integrates with Abbot |
 | Settings | Theme, Ollama URL, API key status |
 
 ## Key Files
